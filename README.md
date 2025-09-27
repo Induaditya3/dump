@@ -55,3 +55,65 @@ default @saved
 timeout 0
 console-mode keep
 ```
+
+# system administration
+sysadmin
+system management
+automation
+
+## bash scripting
+
+### hello world
+
+find the shell which you are running
+
+`echo $SHELL`
+
+to find the path of the bash if it is intalled
+
+`which bash`
+
+to turn the script into a executable
+
+for example file bash script saved as myscript.sh 
+
+but note that file name could be anythind does not need to end .sh
+
+`sudo chmod +x myscript.sh`
+
+sudo is not always necessary
+
+to force system to use bash interpreter  
+we use prepend following shebang to every bash script  
+`#!/bin/bash`
+### variables
+
+### math functions
+
+### if statements
+condionals
+branching
+
+### exit codes
+
+### while loops
+iteration
+
+### universal update scripts
+
+### for loops
+iteration
+
+### filesystem locations for scripts
+
+### data streams
+
+### functions
+
+### case statements
+
+### scheduling jobs
+
+### arguments
+
+### creating a backup script
