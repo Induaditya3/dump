@@ -36,6 +36,36 @@ sudo pacman -S r
 ```
 yay -S rstudio-desktop-bin
 ```
+
+## nvm and node.js
+
+install curl first
+```
+sudo apt update && sudo apt upgrade
+sudo apt install curl
+```
+
+download and install nvm
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+```
+
+initialize nvm
+```
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+```
+install node 
+```
+nvm install --lts
+```
+set the node version to lts
+```
+nvm install --lts
+```
+
+
 # os
 ## to turn off showing boot menu while booting os
 
@@ -112,7 +142,7 @@ example: `expr 5 + 5 \* 2 - 1 / 5 - 1 % 5`
 note that multiplication is specified by `\*`  
 `/` does floor division and `%` does modulo operator
 we can also use variables like so
-```
+```bash
 a=75
 b=25
 expr $a + $b
@@ -123,7 +153,8 @@ conditionals
 branching
 
 example:
-```n=100
+```bash
+n=100
 if [ $n -eq 100 ]
 then
     echo "number is indeed 100 "
@@ -133,7 +164,7 @@ condition should be inside `[]` and there should be space between opening and cl
 
 we could also have else blocks like so
 
-```
+```bash
 n=1000
 if [ $n -eq 100 ]
 then
@@ -143,7 +174,7 @@ else
 fi
 ```
 we can also negate the condional completely by adding `!` like so 
-```
+```bash
 n=1000
 if [ ! $n -eq 100 ]
 then
@@ -151,7 +182,7 @@ then
 fi
 ```
 we can also do
-```
+```bash
 n=1000
 if [ $n -ne 100 ]
 then
@@ -173,7 +204,7 @@ here is a table
 these are applicable for numbers only and not for string comparisions
 
 one could check existence of file by using
-```
+```bash
 if [ -f ~/hello.py ]
 then
      echo "File exists"
@@ -182,7 +213,7 @@ else
 fi
 ```
 alternative is 
-```
+```bash
 fname="hello.py"
 fileexists="$(ls $fname)"
 
@@ -194,7 +225,7 @@ else
 fi
 ```
 for checking existence of the directory
-```
+```bash
 if [ -d ~/dump ]
 then 
      echo "Directory exists"
@@ -204,6 +235,43 @@ fi
 ```
 note `-d` is for directory and `-f` is for file
 
+this can be used for checking existence of the program and install
+it if it does not exist
+```bash
+command=/usr/bin/tldr
+
+if [ -f $command ]
+then 
+    echo "$command is availble"
+else
+    echo "$command is not available. Installing it..."
+    sudo apt update && sudo apt install -y tldr
+fi
+```
+alternatively we can use `command` or `which`
+```bash
+command=tldr
+
+if which tldr
+then 
+     echo "$command does exist."
+else
+     echo "$command does not exist. Installing it"
+     sudo apt update && sudo apt install -y $command
+fi
+```
+and 
+```bash
+command=tldr
+
+if command -v tldr
+then 
+     echo "$command does exist."
+else
+     echo "$command does not exist. Installing it"
+     sudo apt update && sudo apt install -y $command
+fi
+```
 ### exit codes
 
 ### while loops
