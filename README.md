@@ -65,6 +65,11 @@ set the node version to lts
 nvm install --lts
 ```
 
+# updating conda to be compatible with OpenGL
+
+```bash
+conda install -c conda-forge compilers
+```
 
 # os
 ## to turn off showing boot menu while booting os
