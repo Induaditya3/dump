@@ -1,5 +1,60 @@
 # installation
 
+## two ssh key setup for two diffenent github accounts
+
+- add the first one as usual
+
+- create a new ssh-key and add it to the work GitHub account
+
+`ssh-keygen -t rsa -b 4096 -C "my_work_email@my_company.com"`
+
+- when prompted for filename, save it as *~/.ssh/id_rsa* which is default
+ this will create ~/.ssh/id_rsa (private key), ~/.ssh/id_rsa.pub (public key)
+
+- start the agent and add the both keys to the agent
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa          # new key
+ssh-add ~/.ssh/id<some_no>    # previous key
+```
+- add the ssh key to github account
+
+`cat ~/.ssh/id_rsa.pub`
+
+- add following *~/.ssh/config*:
+
+```bash
+# Previous account
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id<some_no>
+  IdentitiesOnly yes
+
+# new account
+Host github.com-work
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa
+  IdentitiesOnly yes
+
+```
+
+- verify
+
+```bash
+ssh -T git@github.com-personal
+ssh -T git@github.com-work
+```
+
+- finally to clone private repo
+
+if repo ssh address is 
+> git@github.com:[my work GitHub group]/[my project].git
+then
+modify it to:
+> git clone git@github.com-work:[my work GitHub group]/[my project].git
+
 ## latex
 ```
 sudo apt install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra
