@@ -1,6 +1,6 @@
 # installation
 
-## two ssh key setup for two diffenent github accounts
+## two ssh key setup for two different github accounts
 
 - add the first one as usual
 
@@ -43,17 +43,20 @@ Host github.com-work
 - verify
 
 ```bash
-ssh -T git@github.com-personal
+ssh -T git@github.com
 ssh -T git@github.com-work
 ```
 
 - finally to clone private repo
 
 if repo ssh address is 
+
 > git@github.com:[my work GitHub group]/[my project].git
+
 then
 modify it to:
-> git clone git@github.com-work:[my work GitHub group]/[my project].git
+
+> git@github.com-**work**:[my work GitHub group]/[my project].git
 
 ## latex
 ```
