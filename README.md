@@ -1,5 +1,85 @@
 # installation
 
+## i3status-rust config.toml
+
+```toml
+[theme]
+theme = "dracula"
+
+[icons]
+icons = "material-nf"
+
+[[block]]
+block = "custom"
+command = "echo \uf011" # assumes fontawesome icons
+interval = "once"
+[[block.click]]
+button = "left"
+cmd = "systemctl `echo -e 'suspend\npoweroff\nreboot' | dmenu`"
+
+[[block]]
+block = "cpu"
+interval = 1
+format = " $icon $utilization "
+
+[[block]]
+block = "memory"
+format = " $icon $mem_used "
+
+[[block]]
+block = "net"
+device = "wlan0"
+format = " $icon $ssid $signal_strength $ip "
+interval = 5
+
+[[block]]
+block = "sound"
+step_width = 5
+[[block.click]]
+button = "left" 
+cmd = "pavucontrol"
+
+[[block]]
+block = "battery"
+# The update interval in seconds (only affects 'sysfs' and 'apc_ups' drivers)
+interval = 10
+
+# Logic Drivers: "sysfs" (direct kernel read, default) or "upower" (standard on GNOME/KDE)
+driver = "sysfs"
+
+# Optional: Specify which battery to monitor (e.g., "BAT0", "BAT1"). 
+# "DisplayDevice" with UPower merges all batteries into one logical status.
+# device = "BAT0"
+
+# --- Formatting ---
+# Each state can have its own look. 
+# $icon automatically cycles based on percentage if using Nerd Fonts/Font Awesome.
+format = " $icon $percentage $time_remaining "
+full_format = " $icon Full "              # Shown when battery > full_threshold
+charging_format = " $icon $percentage ⚡ " # Shown when power source is plugged in
+empty_format = " $icon EMPTY! "           # Shown when battery < empty_threshold
+not_charging_format = " $icon AC "        # Shown when plugged in but not charging
+missing_format = " No Battery "           # Shown if battery is physically removed
+
+# --- State Thresholds (Determines Color) ---
+# Values are percentages. Colors are pulled from your [theme] section.
+good = 70       # >= 70%: 'Good' state (usually green)
+info = 60       # >= 60%: 'Info' state (usually blue)
+warning = 30    # < 30%: 'Warning' state (usually yellow)
+critical = 15   # < 15%: 'Critical' state (usually red)
+
+# --- Behavior Thresholds ---
+full_threshold = 95    # Consider "Full" even if not 100% (saves battery health)
+empty_threshold = 5.0  # Consider "Empty" at 5% to trigger empty_format early
+
+
+
+[[block]] 
+block = "time" 
+interval = 1 
+format = " $icon $timestamp.datetime(f:'%a %d %B %I:%M %p') "
+```
+
 ## two ssh key setup for two different github accounts
 
 - add the first one as usual
