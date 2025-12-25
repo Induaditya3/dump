@@ -13,6 +13,10 @@ button = "left"
 cmd = "echo -e 'poweroff\nreboot' | rofi -dmenu -p 'System:' | xargs -r systemctl"
 
 [[block]]
+block = "uptime"
+interval = 60
+
+[[block]]
 block = "cpu"
 interval = 1
 format = " $icon $utilization "
