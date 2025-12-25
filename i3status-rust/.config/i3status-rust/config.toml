@@ -18,6 +18,11 @@ interval = 1
 format = " $icon $utilization "
 
 [[block]]
+block = "backlight"
+device = "intel_backlight" 
+format = " $icon $brightness "
+
+[[block]]
 block = "memory"
 format = " $icon $mem_used "
 
