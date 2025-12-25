@@ -87,9 +87,6 @@ bindsym $mod+Shift+f exec nautilus
 # take screenshots
 bindsym --release Print exec flameshot full -c -p ~/shots
 
-# suspend session and add wallpaper to lockscreen
-bindsym $mod+Shift+s exec "i3lock -i /usr/share/backgrounds/wallpaper.png && systemctl suspend"
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
