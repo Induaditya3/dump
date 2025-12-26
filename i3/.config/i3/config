@@ -75,6 +75,9 @@ bindsym $mod+b exec google-chrome-stable
 # starting brave
 bindsym $mod+Shift+b exec brave
 
+# mounting google drive via rclone
+bindsym $mod+g exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --daemon"
+
 # starting todoist
 bindsym $mod+t exec "flatpak run com.todoist.Todoist"
 
