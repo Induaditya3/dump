@@ -1,5 +1,28 @@
 # installation
 
+## transparency for rofi and dunst
+
+first install picom compositer
+
+```bash
+sudo pacman -S picom
+```
+
+copy the directories `~/.config/dunst/dunstrc` and `~/.config/picom/picom.conf`
+
+after that set picom and dunst to use our config by running
+
+```bash
+dunst -config .config/dunst/dunstrc
+```
+
+```bash
+# it should be running as a backgroung process
+picom --config .config/picom/picom.conf &
+# later it can be simply ran as 
+picom &
+
+```
 ## two ssh key setup for two different github accounts
 
 - add the first one as usual
