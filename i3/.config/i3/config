@@ -93,9 +93,6 @@ bindsym $mod+b exec google-chrome-stable
 # starting brave
 bindsym $mod+Shift+b exec brave
 
-# mounting google drive via rclone
-bindsym $mod+g exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --daemon"
-
 # starting todoist
 bindsym $mod+t exec "flatpak run com.todoist.Todoist"
 
@@ -103,7 +100,7 @@ bindsym $mod+t exec "flatpak run com.todoist.Todoist"
 bindsym $mod+Shift+t exec gnome-text-editor
 
 # mounting google drive via rclone
-bindsym $mod+m exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --daemon"
+bindsym $mod+i exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --daemon"
 
 # launching file manager
 bindsym $mod+Shift+f exec nautilus
