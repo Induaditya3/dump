@@ -96,6 +96,9 @@ bindsym $mod+t exec "flatpak run com.todoist.Todoist"
 # starting text editor
 bindsym $mod+Shift+t exec gnome-text-editor
 
+# mounting google drive via rclone
+bindsym $mod+m exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --daemon"
+
 # launching file manager
 bindsym $mod+Shift+f exec nautilus
 
