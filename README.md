@@ -1,5 +1,12 @@
 # installation
 
+## integrating mpv with i3status-rs 
+
+```bash
+
+sudo pacman -S mpv-mpris
+```
+
 ## transparency for rofi and dunst
 
 first install picom compositer
