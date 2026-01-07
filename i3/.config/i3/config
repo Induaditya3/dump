@@ -111,6 +111,8 @@ bindsym $mod+i exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --da
 # launching file manager
 bindsym $mod+Shift+f exec nautilus
 
+bindsym $mod+p exec "code textCritique.github.io/"
+
 # take screenshots
 bindsym --release Print exec flameshot full -c -p ~/shots
 
