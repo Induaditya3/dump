@@ -52,6 +52,9 @@ exec --no-startup-id nm-applet
 # set wallpaper using feh
 exec --no-startup-id feh --bg-scale /usr/share/backgrounds/perma.jpg
 
+# enable touch click of built-in touch pad -- dependency xorg-xinput
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+
 # bluetooth manager blueman
 exec --no-startup-id blueman-applet
 
