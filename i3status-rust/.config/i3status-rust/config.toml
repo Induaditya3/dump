@@ -118,12 +118,12 @@ missing_format = " No Battery "           # Shown if battery is physically remov
 # Values are percentages. Colors are pulled from your [theme] section.
 good = 70       # >= 70%: 'Good' state (usually green)
 info = 60       # >= 60%: 'Info' state (usually blue)
-warning = 30    # < 30%: 'Warning' state (usually yellow)
-critical = 15   # < 15%: 'Critical' state (usually red)
+warning = 20    # < 20%: 'Warning' state (usually yellow)
+critical = 10   # < 10%: 'Critical' state (usually red)
 
 # --- Behavior Thresholds ---
 full_threshold = 95    # Consider "Full" even if not 100% (saves battery health)
-empty_threshold = 10.0  # Consider "Empty" at 10% to trigger empty_format early
+empty_threshold = 5.0  # Consider "Empty" at 5% to trigger empty_format early
 
 
 
