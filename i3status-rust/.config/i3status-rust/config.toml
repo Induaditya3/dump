@@ -23,14 +23,11 @@ confirm_msg = "Are you sure you want to reboot?"
 block = "disk_space"
 info_type = "available"
 alert_unit = "GB"
-alert = 10.0
-warning = 15.0
+alert = 7.0
+warning = 10.0
 format = " $icon $available "
 format_alt = " $icon $available / $total "
 
-[[block]]
-block = "packages"
-signal = 1
 
 [[block]]
 block = "music"
