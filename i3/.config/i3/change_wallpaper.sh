@@ -1,13 +1,28 @@
 #!/bin/bash
-# Script for changing the wallpaper randomly
-# This script is intended to be run as "exec --no-startup-id ~/.config/i3/change_wallpaper.sh" from i3 config file
 
+# Script for changing the wallpaper randomly
+# This script is intended to be run as "~/dump/i3/.config/i3/change_wallpaper.sh" from i3 config file
+# it accepts additional option of `-d` for deleting current wallpaper and pushing to my github, and setting a new one
 set -e  # Exit on error
 
 # Configuration
 WALLS_DIR="$HOME/.local/share/wallpapers/walls"
-WALLS_REPO="https://github.com/dharmx/walls.git"
+WALLS_REPO="git@github.com-personal:textCritique/walls.git"
 CACHE_FILE="$HOME/.cache/current_wallpaper"
+DELETE_MODE=false
+
+# Parse command-line arguments
+while getopts "d" opt; do
+    case $opt in
+        d)
+            DELETE_MODE=true
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+    esac
+done
 
 # Create cache directory if it doesn't exist
 mkdir -p "$(dirname "$CACHE_FILE")"
@@ -20,6 +35,34 @@ if [ ! -d "$WALLS_DIR" ]; then
         notify-send -t 3000 -u critical "Wallpaper Changer" "Error: Failed to clone wallpapers repository"
         exit 1
     }
+fi
+
+# Handle delete mode
+if [ "$DELETE_MODE" = true ]; then
+    if [ -f "$CACHE_FILE" ]; then
+        current_wallpaper=$(cat "$CACHE_FILE")
+        if [ -f "$current_wallpaper" ]; then
+            wallpaper_name=$(basename "$current_wallpaper")
+            notify-send -t 3000 "Wallpaper Changer" "Deleting wallpaper: $wallpaper_name"
+            
+            # Delete the wallpaper
+            rm "$current_wallpaper"
+            
+            # Git operations
+            cd "$WALLS_DIR"
+            git add .
+            git commit -m "remove: didn't not like $wallpaper_name, so deleted"
+            git push || {
+                notify-send -t 3000 -u critical "Wallpaper Changer" "Error: Failed to push to git"
+            }
+            
+            notify-send -t 3000 "Wallpaper Changer" "Wallpaper deleted and changes pushed to git"
+        else
+            notify-send -t 3000 "Wallpaper Changer" "Warning: Current wallpaper file not found"
+        fi
+    else
+        notify-send -t 3000 "Wallpaper Changer" "Warning: No current wallpaper cached"
+    fi
 fi
 
 # Find all image files in subdirectories (excluding hidden files and git directory)
