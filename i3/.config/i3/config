@@ -50,7 +50,9 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec --no-startup-id nm-applet
 
 # set wallpaper using feh
-exec --no-startup-id feh --bg-scale /usr/share/backgrounds/perma.jpg
+# exec --no-startup-id feh --bg-scale /usr/share/backgrounds/perma.jpg
+# since wallpaper repo is very large running this from terminal for the first time is recommended
+exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh"
 
 # enable touch click of built-in touch pad -- dependency xorg-xinput
 exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
@@ -114,7 +116,10 @@ bindsym $mod+i exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --da
 # launching file manager
 bindsym $mod+Shift+f exec nautilus
 
-bindsym $mod+p exec "code textCritique.github.io/"
+# change the picture of the screen
+bindsym $mod+p exec "sh ~/dump/i3/.config/i3/change_wallpaper.sh"
+# for deleting current picture 
+bindsym $mod+Shift+p exec "sh ~/dump/i3/.config/i3/change_wallpaper.sh -d"
 
 # take screenshots
 bindsym --release Print exec flameshot full -c -p ~/shots
