@@ -14,10 +14,10 @@ mkdir -p "$(dirname "$CACHE_FILE")"
 
 # Check if repository is cloned, if not clone it
 if [ ! -d "$WALLS_DIR" ]; then
-    echo "Wallpapers repository not found. Cloning..."
+    notify-send -t 3000 "Wallpaper Changer" "Wallpapers repository not found. Cloning..."
     mkdir -p "$(dirname "$WALLS_DIR")"
     git clone "$WALLS_REPO" "$WALLS_DIR" || {
-        echo "Error: Failed to clone wallpapers repository"
+        notify-send -t 3000 -u critical "Wallpaper Changer" "Error: Failed to clone wallpapers repository"
         exit 1
     }
 fi
@@ -27,7 +27,7 @@ mapfile -t wallpapers < <(find "$WALLS_DIR" -type f \( -iname "*.jpg" -o -iname 
 
 # Check if any wallpapers were found
 if [ ${#wallpapers[@]} -eq 0 ]; then
-    echo "Error: No wallpapers found in $WALLS_DIR"
+    notify-send -t 3000 -u critical "Wallpaper Changer" "Error: No wallpapers found in $WALLS_DIR"
     exit 1
 fi
 
@@ -36,16 +36,16 @@ random_wallpaper="${wallpapers[RANDOM % ${#wallpapers[@]}]}"
 
 # Check if feh is installed
 if ! command -v feh &> /dev/null; then
-    echo "Error: feh is not installed. Install it with: sudo pacman -S feh"
+    notify-send -t 3000 -u critical "Wallpaper Changer" "Error: feh is not installed. Install it with: sudo pacman -S feh"
     exit 1
 fi
 
 # Set the wallpaper
 feh --no-fehbg --bg-scale "$random_wallpaper" && {
-    echo "Wallpaper changed to: $random_wallpaper"
+    notify-send -t 3000 "Wallpaper Changer" "Wallpaper changed successfully"
     # Save current wallpaper to cache for reference
     echo "$random_wallpaper" > "$CACHE_FILE"
 } || {
-    echo "Error: Failed to set wallpaper"
+    notify-send -t 3000 -u critical "Wallpaper Changer" "Error: Failed to set wallpaper"
     exit 1
 }
