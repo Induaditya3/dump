@@ -117,9 +117,9 @@ bindsym $mod+i exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --da
 bindsym $mod+Shift+f exec nautilus
 
 # change the picture of the screen
-bindsym $mod+p exec "sh ~/dump/i3/.config/i3/change_wallpaper.sh"
+bindsym $mod+p exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh"
 # for deleting current picture 
-bindsym $mod+Shift+p exec "sh ~/dump/i3/.config/i3/change_wallpaper.sh -d"
+bindsym $mod+Shift+p exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh -d"
 
 # take screenshots
 bindsym --release Print exec flameshot full -c -p ~/shots
