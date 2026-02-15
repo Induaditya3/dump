@@ -65,8 +65,8 @@ if [ "$DELETE_MODE" = true ]; then
     fi
 fi
 
-# Find all image files in subdirectories (excluding hidden files and git directory)
-mapfile -t wallpapers < <(find "$WALLS_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) ! -path "*/.git/*" 2>/dev/null)
+# Find all image files in subdirectories (fd automatically ignores .git and hidden files)
+mapfile -t wallpapers < <(fd -e jpg -e jpeg -e png -e webp -t f . "$WALLS_DIR")
 
 # Check if any wallpapers were found
 if [ ${#wallpapers[@]} -eq 0 ]; then
