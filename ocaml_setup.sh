@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e  # Exit immediately if a command exits with a non-zero status
 
-# Install OPAM
-sudo apt-get update
-sudo apt-get install -y opam
+# Checking if opam is installed
+if ! command -v opam &> /dev/null;
+  then echo "opam is not installed. Download it from official website."
+  exit 1
+fi
 
 # Initialize OPAM
 opam init -a -y
