@@ -10,13 +10,13 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #7dcfff #7dcfff #0f0f1e #e0af68   #7dcfff
-client.focused_inactive #1a1b2e #1a1b2e #a9b1d6 #1a1b2e   #1a1b2e
-client.unfocused        #0f0f1e #0f0f1e #3b4261 #0f0f1e   #0f0f1e
-client.urgent           #ff9e64 #ff9e64 #0f0f1e #ff9e64   #ff9e64
-client.placeholder      #0f0f1e #0f0f1e #c0caf5 #0f0f1e   #0f0f1e
+client.focused          #a78bfa #a78bfa #0e0520 #cc82c8   #a78bfa
+client.focused_inactive #1e0a33 #1e0a33 #d8b4fe #1e0a33   #1e0a33
+client.unfocused        #0e0520 #0e0520 #4c1d95 #0e0520   #0e0520
+client.urgent           #f59e0b #f59e0b #0e0520 #f59e0b   #f59e0b
+client.placeholder      #0e0520 #0e0520 #d8b4fe #0e0520   #0e0520
 
-client.background       #0f0f1e
+client.background       #0e0520
     
 
 
@@ -262,16 +262,16 @@ bar {
         status_command i3status-rs
 
         colors {
-                background #0f0f1e
-                statusline #c0caf5
-                separator  #3b4261
+                background #0e0520
+                statusline #d8b4fe
+                separator  #4c1d95
 
                 #                  border  bg      text
-                focused_workspace  #7dcfff #7dcfff #0f0f1e
-                active_workspace   #3b4261 #3b4261 #c0caf5
-                inactive_workspace #0f0f1e #0f0f1e #565f89
-                urgent_workspace   #ff9e64 #ff9e64 #0f0f1e
-                binding_mode       #bb9af7 #bb9af7 #0f0f1e
+                focused_workspace  #a78bfa #a78bfa #0e0520
+                active_workspace   #4c1d95 #4c1d95 #d8b4fe
+                inactive_workspace #0e0520 #0e0520 #6d28d9
+                urgent_workspace   #f59e0b #f59e0b #0e0520
+                binding_mode       #8b5cf6 #8b5cf6 #0e0520
         }
 
 }
