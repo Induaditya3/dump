@@ -116,13 +116,19 @@ bindsym $mod+i exec "rclone mount journal: ~/gdrive --vfs-cache-mode writes --da
 # launching file manager
 bindsym $mod+Shift+f exec nautilus
 
+# launching drawing app krita
+bindsym $mod+Shift+d exec krita
+
+# launching note taking app xournalpp 
+bindsym $mod+x exec xournalpp
+
 # change the picture of the screen
 bindsym $mod+p exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh"
 # for deleting current picture 
 bindsym $mod+Shift+p exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh -d"
 
 # take screenshots
-bindsym --release Print exec flameshot full -c -p ~/shots
+bindsym --release Print exec flameshot full -c -p ~/pdf/shots
 
 # kill focused window
 bindsym $mod+Shift+q kill
