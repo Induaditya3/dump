@@ -1,0 +1,9 @@
+# Put xournal_sync.sh in `~/.local/bin/`
+
+# Put xournal_sync.sh in `~/.config/systemd/user/`
+
+# Put xournal_sync.timer `~/.config/systemd/user/`
+
+# `systemctl --user enable --now xournal-sync.timer`
+
+# `systemctl --user start xournal-sync.service`
