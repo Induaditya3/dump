@@ -129,7 +129,7 @@ bindsym $mod+p exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh
 bindsym $mod+Shift+p exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh -d"
 
 # take screenshots
-bindsym --release Print exec flameshot full -c -p ~/pdf/shots
+bindsym --release Print exec --no-startup-id flameshot full -c -p ~/pdf/shots
 
 # kill focused window
 bindsym $mod+Shift+q kill
