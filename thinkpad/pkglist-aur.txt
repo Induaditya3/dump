@@ -1,0 +1,14 @@
+ani-cli
+ani-skip-git
+brave-bin
+google-chrome
+jdtls
+jogl
+logisim-evolution
+rofi-pass
+rstudio-desktop-bin
+ttf-wps-fonts
+visual-studio-code-bin
+weylus-bin
+wps-office
+yay

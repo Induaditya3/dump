@@ -1,0 +1,9 @@
+brave-bin
+google-chrome
+jdtls
+jogl
+logisim-evolution
+rofi-pass
+rstudio-desktop-bin
+ttf-wps-fonts
+visual-studio-code-bin
