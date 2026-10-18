@@ -19,10 +19,10 @@ display = " -&gt;  Reboot   &lt;-"
 cmd = "reboot"
 confirm_msg = "Are you sure you want to reboot?"
 
-[[block]]
-block = "nvidia_gpu"
-format = " $icon $utilization $temperature $clocks $fan_speed $power"
-interval = 1
+#[[block]]
+#block = "nvidia_gpu"
+#format = " $icon $utilization $temperature $clocks $fan_speed $power"
+#interval = 1
 
 
 [[block]]
@@ -34,11 +34,11 @@ warning = 10.0
 format = " $icon $available "
 format_alt = " $icon $available / $total "
 
-[[block]]
-block = "amd_gpu"
-format = " $icon $utilization "
-format_alt = " $icon MEM: $vram_used_percents ($vram_used/$vram_total) "
-interval = 1
+#[[block]]
+#block = "amd_gpu"
+#format = " $icon $utilization "
+#format_alt = " $icon MEM: $vram_used_percents ($vram_used/$vram_total) "
+#interval = 1
 
 [[block]]
 block = "music"
