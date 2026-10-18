@@ -20,6 +20,12 @@ cmd = "reboot"
 confirm_msg = "Are you sure you want to reboot?"
 
 [[block]]
+block = "nvidia_gpu"
+format = " $icon $utilization $temperature $clocks $fan_speed $power"
+interval = 1
+
+
+[[block]]
 block = "disk_space"
 info_type = "available"
 alert_unit = "GB"
