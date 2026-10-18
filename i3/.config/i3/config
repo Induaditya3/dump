@@ -7,6 +7,10 @@
 
 # i3 config file (v4)
 #
+# Adapted from ThinkPad T450 for Lenovo LOQ Essential 15ARP10
+# (Ryzen 5 + RTX 3050, AMD iGPU + NVIDIA dGPU, 15.6" FHD).
+# Every line changed from the T450 version is tagged with "# LOQ:".
+#
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # class                 border  backgr. text    indicator child_border
@@ -38,7 +42,9 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -i /usr/share/backgrounds/wallpaper.png --nofork
+# LOQ: /usr/share/backgrounds/wallpaper.png does not exist on this install (i3lock -i would fail to
+# load it). Use a solid Tokyo-Night background (#1a1b26, same as the bar) so locking always works.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 1a1b26 --nofork
 
 # add polkit for authentication graphically
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
@@ -53,7 +59,9 @@ exec --no-startup-id nm-applet
 exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh"
 
 # enable touch click of built-in touch pad -- dependency xorg-xinput
-exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+# LOQ: the T450 device "SynPS/2 Synaptics TouchPad" does not exist here. On the LOQ, `xinput list`
+# shows an I2C-HID Synaptics pad with the name below, and tapping defaults to 0 (off).
+exec --no-startup-id xinput set-prop "SYNA2BA6:00 06CB:CE2D Touchpad" "libinput Tapping Enabled" 1
 
 # bluetooth manager blueman
 exec --no-startup-id blueman-applet
@@ -62,7 +70,8 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id copyq
 
 # add blur to rofi, dunst and terminal 
-exec --no-startup-id "picom --config .config/picom/picom.conf"
+# LOQ: relative path -> absolute (~ expands via sh). Does not depend on i3's working directory.
+exec --no-startup-id "picom --config ~/.config/picom/picom.conf"
 
 # screenshot tool
 exec --no-startup-id flameshot
@@ -80,11 +89,22 @@ bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
+# LOQ/fix: bar is i3status-rs, so signal that process (killall i3status never matched it).
+set $refresh_i3status killall -SIGUSR1 i3status-rs
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# LOQ: screen brightness keys (the T450 config had none). The only backlight is amdgpu_bl1,
+# raw range 0-65535, so the floor is an absolute 1300 (~2%): a floor of 1 would be near-black.
+# Needs: pacman -S brightnessctl, and your user in the "video" group.
+set $brightness brightnessctl -d amdgpu_bl1 --min-value=1300
+bindsym XF86MonBrightnessUp exec --no-startup-id $brightness set 5%+
+bindsym XF86MonBrightnessDown exec --no-startup-id $brightness set 5%-
+
+# LOQ (optional): cycle performance profile (Quiet/Balanced/Performance), needs power-profiles-daemon.
+#bindsym $mod+F11 exec --no-startup-id sh -c 'p=$(powerprofilesctl get); case $p in power-saver) n=balanced;; balanced) n=performance;; *) n=power-saver;; esac; powerprofilesctl set $n'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -129,7 +149,12 @@ bindsym $mod+p exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh
 bindsym $mod+Shift+p exec --no-startup-id "sh ~/dump/i3/.config/i3/change_wallpaper.sh -d"
 
 # take screenshots
+# LOQ: the physical PrtSc key sends KEY_SELECTIVE_SCREENSHOT (code 634), which X11 cannot deliver
+# (X keycodes stop at 255), so `Print` never fires until the key is remapped to sysrq with a udev
+# hwdb entry (see the instructions I gave you). Once remapped, this binding works as before.
 bindsym --release Print exec --no-startup-id flameshot full -c -p ~/pdf/shots
+# LOQ: fallback that works regardless of the remap: region screenshot, saved to the same folder.
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui -p ~/pdf/shots
 
 # kill focused window
 bindsym $mod+Shift+q kill
