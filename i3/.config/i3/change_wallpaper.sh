@@ -7,7 +7,7 @@ set -e  # Exit on error
 
 # Configuration
 WALLS_DIR="$HOME/.local/share/wallpapers/walls"
-WALLS_REPO="git@github.com-personal:textCritique/walls.git"
+WALLS_REPO="git@github.com-p:textCritique/walls.git"
 CACHE_FILE="$HOME/.cache/current_wallpaper"
 DELETE_MODE=false
 
