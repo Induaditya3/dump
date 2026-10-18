@@ -59,7 +59,8 @@ block = "temperature"
 format = " $icon $max max "
 format_alt = " $icon $min min, $max max, $average avg "
 interval = 10
-chip = "*-isa-*"
+# LOQ: T450 exposed CPU temp as coretemp-isa-*; on the LOQ the Ryzen sensor is k10temp-pci-*
+chip = "k10temp-*"
 
 
 [[block]]
@@ -69,7 +70,8 @@ format = " $icon $utilization "
 
 [[block]]
 block = "backlight"
-device = "intel_backlight" 
+# LOQ: Intel iGPU backlight does not exist here; the panel is driven by amdgpu
+device = "amdgpu_bl1"
 format = " $icon $brightness "
 
 [[block]]
@@ -82,7 +84,8 @@ critical_mem = 90
 
 [[block]]
 block = "net"
-device = "wlan0"
+# LOQ: "wlan0" was the T450 interface name. The LOQ Wi-Fi (MediaTek MT7921) has a different
+# name (wlp*s0), so leave `device` unset and let the block follow the default route.
 format = " $icon $ssid "
 format_alt = " $icon { $frequency $ip|Wired connection} via $device "
 interval = 5
@@ -110,7 +113,8 @@ driver = "sysfs"
 
 # Optional: Specify which battery to monitor (e.g., "BAT0", "BAT1"). 
 # "DisplayDevice" with UPower merges all batteries into one logical status.
-# device = "BAT0"
+# LOQ: single battery BAT0 (T450 had BAT0+BAT1); pin it explicitly
+device = "BAT0"
 
 # --- Formatting ---
 # Each state can have its own look. 
