@@ -6,9 +6,11 @@
 set -e  # Exit on error
 
 # Configuration
-WALLS_DIR="$HOME/.local/share/wallpapers/walls"
+WALLS_DIR="/usr/share/walls"
 WALLS_REPO="git@github.com-p:textCritique/walls.git"
-CACHE_FILE="$HOME/.cache/current_wallpaper"
+# Shared temporary storage is readable by LightDM and writable by the user.
+CACHE_FILE="/var/tmp/current_wallpaper"
+LIGHTDM_WALLPAPER="/var/tmp/lightdm-wallpaper"
 DELETE_MODE=false
 
 # Parse command-line arguments
@@ -54,6 +56,7 @@ if [ "$DELETE_MODE" = true ]; then
             git commit -m "remove: didn't not like $wallpaper_name, so deleted"
             git push || {
                 notify-send -t 3000 -u critical "Wallpaper Changer" "Error: Failed to push to git"
+                exit 1
             }
             
             notify-send -t 3000 "Wallpaper Changer" "Wallpaper deleted and changes pushed to git"
@@ -77,6 +80,18 @@ fi
 # Select a random wallpaper
 random_wallpaper="${wallpapers[RANDOM % ${#wallpapers[@]}]}"
 
+publish_lightdm_wallpaper() {
+    local temporary_file
+    temporary_file=$(mktemp "${LIGHTDM_WALLPAPER}.XXXXXX") || return 1
+
+    if ! cp -- "$random_wallpaper" "$temporary_file" ||
+        ! chmod 0644 "$temporary_file" ||
+        ! mv -f -- "$temporary_file" "$LIGHTDM_WALLPAPER"; then
+        rm -f -- "$temporary_file"
+        return 1
+    fi
+}
+
 # Check if feh is installed
 if ! command -v feh &> /dev/null; then
     notify-send -t 3000 -u critical "Wallpaper Changer" "Error: feh is not installed. Install it with: sudo pacman -S feh"
@@ -85,9 +100,14 @@ fi
 
 # Set the wallpaper
 feh --no-fehbg --bg-scale "$random_wallpaper" && {
-    notify-send -t 3000 "Wallpaper Changer" "Wallpaper changed successfully"
     # Save current wallpaper to cache for reference
     echo "$random_wallpaper" > "$CACHE_FILE"
+    # LightDM GTK Greeter uses a regular image file at this stable path.
+    publish_lightdm_wallpaper || {
+        notify-send -t 3000 -u critical "Wallpaper Changer" "Error: Failed to update LightDM wallpaper"
+        exit 1
+    }
+    notify-send -t 3000 "Wallpaper Changer" "Wallpaper changed successfully"
 } || {
     notify-send -t 3000 -u critical "Wallpaper Changer" "Error: Failed to set wallpaper"
     exit 1
